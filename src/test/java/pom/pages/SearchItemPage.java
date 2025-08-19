@@ -4,7 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pom.utils.ExtentReportManager;
 import pom.utils.WebActions;
+
+import javax.swing.text.html.parser.Element;
 
 public class SearchItemPage {
     private WebDriver driver;
@@ -24,8 +27,10 @@ public class SearchItemPage {
     }
 
     public void searchItem(String itemName, String categoryName){
+        ExtentReportManager.writeToReport("Start of search item");
         WebActions.type(searchBox, itemName);
         WebActions.selectDropDownByText(categoryDropDown, categoryName);
         WebActions.click(searchButton);
+        ExtentReportManager.writeToReport("End of search item");
     }
 }

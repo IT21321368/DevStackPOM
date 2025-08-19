@@ -1,13 +1,11 @@
 package pom.tests;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pom.pages.ClothSearchPage;
 import pom.pages.MobileSearchPage;
 import pom.pages.SearchItemPage;
+import pom.utils.ExtentReportManager;
 import pom.utils.ThreadLocalWebDriver;
 
 public class SearchTest {
@@ -21,6 +19,12 @@ public class SearchTest {
                 {"iphone","Cell Phones & Accessories"},
                 {"Men's T-shirt","Clothing, Shoes & Accessories"}
         };
+    }
+
+    @BeforeTest
+    public void beforeTest(){
+        ExtentReportManager.setupReport();
+
     }
 
     @BeforeMethod
@@ -57,6 +61,7 @@ public class SearchTest {
 
     @Test(dataProvider = "searchData")
     public void searchForItem(String itemName, String categoryName){
+        ExtentReportManager.startTest("Search for Item" +itemName);
         searchItemPage.searchItem(itemName,categoryName);
     }
 
@@ -67,5 +72,7 @@ public class SearchTest {
             webDriver.quit();
             ThreadLocalWebDriver.removeWebDriver();
         }
+        ExtentReportManager.endTest();
     }
+
 }
